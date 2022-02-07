@@ -75,7 +75,7 @@ class CustomButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.all(2.0),
+        margin: const EdgeInsets.all(2.0),
         height: 50,
         width: double.infinity,
         decoration: BoxDecoration(
@@ -86,7 +86,7 @@ class CustomButton extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(
             titulo,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 18,
               wordSpacing: 1.5,

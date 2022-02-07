@@ -10,7 +10,7 @@ class AnimacoesImplicitasExercicio01 extends StatefulWidget {
 class _AnimacoesImplicitas01State
     extends State<AnimacoesImplicitasExercicio01> {
   var isCircular = true;
-  var duration = Duration(seconds: 1);
+  var duration = const Duration(seconds: 1);
 
   @override
   Widget build(BuildContext context) {

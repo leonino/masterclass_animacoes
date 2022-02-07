@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class AnimacoesExplicitasExercicio02 extends StatelessWidget {
@@ -15,7 +13,7 @@ class AnimacoesExplicitasExercicio02 extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
-          itemCount: 2,
+          itemCount: 50,
           itemBuilder: (BuildContext context, int index) {
             return MyExpansionTile(title: 'My Expansion Tile $index');
           },
@@ -39,8 +37,9 @@ class _MyExpansionTileState extends State<MyExpansionTile>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> animationRotation;
-  late Animation<double> animationFactor;
-  var duration = Duration(seconds: 1);
+  late Animation<double> animationAlign;
+  var duration = const Duration(milliseconds: 300);
+  var isExpanded = false;
 
   get title => widget.title;
 
@@ -49,14 +48,14 @@ class _MyExpansionTileState extends State<MyExpansionTile>
     super.initState();
 
     controller = AnimationController(duration: duration, vsync: this);
-    animationRotation = Tween<double>(begin: 0.0, end: 0.5).animate(controller)
-      ..addListener(() {
-        setState(() {});
-      });
-    animationFactor = Tween<double>(begin: 0, end: 1).animate(controller)
-      ..addListener(() {
-        setState(() {});
-      });
+    animationRotation = Tween<double>(begin: 0.0, end: 0.5).animate(controller);
+    animationAlign = Tween<double>(begin: 0.1, end: 1.0).animate(controller);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -64,43 +63,52 @@ class _MyExpansionTileState extends State<MyExpansionTile>
     return GestureDetector(
       onTap: () {
         setState(() {
-          if (controller.isCompleted) {
-            controller.reverse();
-          } else {
+          if (controller.value == 0) {
+            isExpanded = true;
             controller.forward();
+          } else {
+            isExpanded = false;
+            controller.reverse();
           }
         });
       },
-      child: ClipRect(
-        child: Stack(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('$title'),
-                RotationTransition(
-                  turns: animationRotation,
-                  child: Icon(Icons.keyboard_arrow_down),
-                ),
-              ],
-            ),
-            Align(
-              alignment: Alignment.center,
-              heightFactor: animationFactor.value,
-              child: (controller.isCompleted)
-                  ? Container(
-                      child: Column(
-                        children: <Widget>[
-                          Image.asset('assets/flutter.png'),
-                          Text(textoRandomico(), textAlign: TextAlign.justify),
-                        ],
+      child: AnimatedBuilder(
+          animation: controller,
+          builder: (context, child) {
+            return ClipRect(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('$title'),
+                      RotationTransition(
+                        turns: animationRotation,
+                        child: const Icon(Icons.keyboard_arrow_down),
                       ),
-                    )
-                  : null,
-            ),
-          ],
-        ),
-      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                    width: double.infinity,
+                  ),
+                  Align(
+                    heightFactor: animationAlign.value,
+                    alignment: Alignment.center,
+                    child: (isExpanded)
+                        ? Column(
+                            children: <Widget>[
+                              Image.asset('assets/flutter.png'),
+                              Text(textoRandomico(),
+                                  textAlign: TextAlign.justify),
+                            ],
+                          )
+                        : null,
+                  ),
+                ],
+              ),
+            );
+          }),
     );
   }
 }
@@ -113,6 +121,6 @@ Vivamus condimentum neque id arcu rutrum, nec feugiat lectus congue. Aliquam mi
 dui, lacinia non rhoncus eu, suscipit ut sapien. Ut dictum tincidunt lorem non maximus.
 Quisque mattis finibus auctor.
 ''';
-  var end = Random().nextInt(texto.length);
-  return texto.substring(0, end);
+  //var end = Random().nextInt(texto.length);
+  return texto.substring(0, 150);
 }

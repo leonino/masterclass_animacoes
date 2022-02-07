@@ -52,7 +52,7 @@ class _AnimacoesExplicitas01State extends State<AnimacoesExplicitasExercicio01>
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Desafio do Botão Flutuante'),
+        title: const Text('Desafio do Botão Flutuante'),
         backgroundColor: Colors.red,
       ),
       body: Padding(

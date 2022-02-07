@@ -9,7 +9,7 @@ class AnimacoesImplicitasExercicio02 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Recriando Expasion Tile'),
+        title: const Text('Recriando Expasion Tile'),
         backgroundColor: Colors.blue,
       ),
       body: Padding(
