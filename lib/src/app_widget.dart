@@ -18,10 +18,10 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => HomePage(),
-        '/impricita01': (context) => AnimacoesImplicitasExercicio01(),
-        '/impricita02': (context) => AnimacoesImplicitasExercicio02(),
-        '/explicita01': (context) => AnimacoesExplicitasExercicio01(),
-        '/explicita02': (context) => AnimacoesExplicitasExercicio02(),
+        '/impricita01': (context) => const AnimacoesImplicitasExercicio01(),
+        '/impricita02': (context) => const AnimacoesImplicitasExercicio02(),
+        '/explicita01': (context) => const AnimacoesExplicitasExercicio01(),
+        '/explicita02': (context) => const AnimacoesExplicitasExercicio02(),
       },
     );
   }

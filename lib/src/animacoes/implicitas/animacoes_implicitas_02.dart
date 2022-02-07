@@ -2,13 +2,16 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class AnimacoesExplicitasExercicio02 extends StatelessWidget {
-  const AnimacoesExplicitasExercicio02({Key? key}) : super(key: key);
+class AnimacoesImplicitasExercicio02 extends StatelessWidget {
+  const AnimacoesImplicitasExercicio02({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Recriando Expasion Tile')),
+      appBar: AppBar(
+        title: Text('Recriando Expasion Tile'),
+        backgroundColor: Colors.blue,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
@@ -34,7 +37,7 @@ class MyExpansionTile extends StatefulWidget {
 
 class _MyExpansionTileState extends State<MyExpansionTile> {
   bool isExpanded = false;
-  var duration = Duration(seconds: 1);
+  var duration = const Duration(seconds: 1);
   get title => widget.title;
 
   @override
@@ -50,9 +53,9 @@ class _MyExpansionTileState extends State<MyExpansionTile> {
           title: Text('$title'),
           trailing: AnimatedRotation(
             curve: Curves.ease,
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             turns: isExpanded ? 0.5 : 0.0,
-            child: Icon(Icons.keyboard_arrow_down),
+            child: const Icon(Icons.keyboard_arrow_down),
           ),
           subtitle: AnimatedAlign(
             alignment: Alignment.topCenter,

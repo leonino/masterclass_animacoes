@@ -12,7 +12,7 @@ class _AnimacoesExplicitas01State extends State<AnimacoesExplicitasExercicio01>
   late AnimationController controller;
   late Animation<double> animationTween;
   late Animation<Alignment> animationAlign;
-  var duration = Duration(seconds: 2);
+  var duration = const Duration(seconds: 2);
 
   @override
   void initState() {
@@ -51,7 +51,10 @@ class _AnimacoesExplicitas01State extends State<AnimacoesExplicitasExercicio01>
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('Desafio do Botão Flutuante')),
+      appBar: AppBar(
+        title: Text('Desafio do Botão Flutuante'),
+        backgroundColor: Colors.red,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GestureDetector(
@@ -62,7 +65,7 @@ class _AnimacoesExplicitas01State extends State<AnimacoesExplicitasExercicio01>
               width: 160 - animationTween.value,
               height: 60,
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.red,
                 borderRadius: BorderRadius.circular(animationTween.value),
               ),
             ),

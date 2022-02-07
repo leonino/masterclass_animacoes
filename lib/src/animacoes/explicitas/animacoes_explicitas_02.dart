@@ -2,17 +2,20 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class AnimacoesImplicitasExercicio02 extends StatelessWidget {
-  const AnimacoesImplicitasExercicio02({Key? key}) : super(key: key);
+class AnimacoesExplicitasExercicio02 extends StatelessWidget {
+  const AnimacoesExplicitasExercicio02({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Recriando Expasion Tile')),
+      appBar: AppBar(
+        title: const Text('Recriando Expasion Tile'),
+        backgroundColor: Colors.red,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
-          itemCount: 50,
+          itemCount: 2,
           itemBuilder: (BuildContext context, int index) {
             return MyExpansionTile(title: 'My Expansion Tile $index');
           },
@@ -32,41 +35,70 @@ class MyExpansionTile extends StatefulWidget {
   State<MyExpansionTile> createState() => _MyExpansionTileState();
 }
 
-class _MyExpansionTileState extends State<MyExpansionTile> {
-  bool isExpanded = false;
+class _MyExpansionTileState extends State<MyExpansionTile>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> animationRotation;
+  late Animation<double> animationFactor;
   var duration = Duration(seconds: 1);
+
   get title => widget.title;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(duration: duration, vsync: this);
+    animationRotation = Tween<double>(begin: 0.0, end: 0.5).animate(controller)
+      ..addListener(() {
+        setState(() {});
+      });
+    animationFactor = Tween<double>(begin: 0, end: 1).animate(controller)
+      ..addListener(() {
+        setState(() {});
+      });
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         setState(() {
-          isExpanded = !isExpanded;
+          if (controller.isCompleted) {
+            controller.reverse();
+          } else {
+            controller.forward();
+          }
         });
       },
       child: ClipRect(
-        child: ListTile(
-          title: Text('$title'),
-          trailing: AnimatedRotation(
-            curve: Curves.ease,
-            duration: Duration(milliseconds: 300),
-            turns: isExpanded ? 0.5 : 0.0,
-            child: Icon(Icons.keyboard_arrow_down),
-          ),
-          subtitle: AnimatedAlign(
-            alignment: Alignment.topCenter,
-            heightFactor: isExpanded ? 1 : 0,
-            duration: duration,
-            child: isExpanded
-                ? Column(
-                    children: <Widget>[
-                      Image.asset('assets/flutter.png'),
-                      Text(textoRandomico(), textAlign: TextAlign.justify),
-                    ],
-                  )
-                : null,
-          ),
+        child: Stack(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('$title'),
+                RotationTransition(
+                  turns: animationRotation,
+                  child: Icon(Icons.keyboard_arrow_down),
+                ),
+              ],
+            ),
+            Align(
+              alignment: Alignment.center,
+              heightFactor: animationFactor.value,
+              child: (controller.isCompleted)
+                  ? Container(
+                      child: Column(
+                        children: <Widget>[
+                          Image.asset('assets/flutter.png'),
+                          Text(textoRandomico(), textAlign: TextAlign.justify),
+                        ],
+                      ),
+                    )
+                  : null,
+            ),
+          ],
         ),
       ),
     );

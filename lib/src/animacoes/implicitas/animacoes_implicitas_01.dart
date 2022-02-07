@@ -21,23 +21,23 @@ class _AnimacoesImplicitas01State
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('Desafio do Botão Flutuante')),
+      appBar: AppBar(title: const Text('Desafio do Botão Flutuante')),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: AnimatedAlign(
-          alignment: (isCircular) ? Alignment.bottomRight : Alignment.topCenter,
-          duration: duration,
-          child: GestureDetector(
-            onTap: move,
+        child: GestureDetector(
+          onTap: move,
+          child: AnimatedAlign(
+            alignment:
+                (isCircular) ? Alignment.bottomRight : Alignment.topCenter,
+            duration: duration,
             child: AnimatedContainer(
               duration: duration,
-              child: Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(isCircular ? 100 : 0),
-                ),
+              curve: Curves.ease,
+              width: isCircular ? 60 : 160,
+              height: 60,
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(isCircular ? 100 : 0),
               ),
             ),
           ),

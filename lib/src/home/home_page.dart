@@ -17,9 +17,9 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(width: 30, height: 30),
-            Text('Implicitas'),
-            SizedBox(width: 10, height: 10),
+            const SizedBox(width: 30, height: 30),
+            const Text('Implicitas'),
+            const SizedBox(width: 10, height: 10),
             CustomButton(
               titulo: 'Desafio do Botão Flutuante',
               onTap: () {
@@ -32,18 +32,18 @@ class HomePage extends StatelessWidget {
                 Navigator.of(context).pushNamed('/impricita02');
               },
             ),
-            SizedBox(width: 30, height: 30),
-            Text('Explicitas / Controladas'),
-            SizedBox(width: 10, height: 10),
+            const SizedBox(width: 30, height: 30),
+            const Text('Explicitas / Controladas'),
+            const SizedBox(width: 10, height: 10),
             CustomButton(
-              titulo: 'Exercício 01',
+              titulo: 'Desafio do Botão Flutuante',
               cor: Colors.redAccent,
               onTap: () {
                 Navigator.of(context).pushNamed('/explicita01');
               },
             ),
             CustomButton(
-              titulo: 'Exercício 02',
+              titulo: 'Recriando Expasion Tile',
               cor: Colors.redAccent,
               onTap: () {
                 Navigator.of(context).pushNamed('/explicita02');
